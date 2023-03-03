@@ -58,7 +58,7 @@ CROSS JOIN (
 	SELECT
 	*
 	FROM (
-		VALUES ('Overall', 1), ('Conten', 2), ('Speaker presentation', 3), ('Relevance', 4)
+		VALUES ('Overall', 1), ('Content', 2), ('Speaker presentation', 3), ('Relevance', 4)
 	)
 	AS c(category, category_sort)
 )  c
