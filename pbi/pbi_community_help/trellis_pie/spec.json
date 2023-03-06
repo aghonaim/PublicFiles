@@ -1,1 +1,41 @@
-https://community.powerbi.com/t5/Custom-Visuals-Development/trelli-multiple-scatter-plot-and-pie-chart/m-p/3113883#M7012
+{
+    "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+    "data": {
+      "name": "dataset",
+      "url": "https://raw.githubusercontent.com/Giammaria/PublicFiles/master/pbi/pbi_community_help/trellis_pie/data/data.tsv",
+      "format": {"parse": {"Result": "number"}}
+    },
+    "transform": [
+      {
+        "joinaggregate": [{"op": "distinct", "field": "Type", "as": "type_count"}]
+      },
+      {
+        "joinaggregate": [{"op": "sum", "field": "Result", "as": "result_total"}],
+        "groupby": ["Type"]
+      },
+      {
+        "calculate": "toString(datum['Result'])+' out of '+toString(datum['result_total'])",
+        "as": "result_out_of"
+      },
+      {
+        "calculate": "format(datum['Result']/datum['result_total'],'.0%')",
+        "as": "percentage"
+      }
+    ],
+    "mark": {"type": "arc"},
+    "encoding": {
+      "facet": {
+        "field": "Type",
+        "type": "ordinal",
+        "columns": 5,
+        "sort": {"field": "Type"}
+      },
+      "theta": {"field": "Result", "type": "quantitative"},
+      "color": {"field": "Voice", "type": "nominal"},
+      "tooltip": [
+        {"title": "Voice", "field": "Voice"},
+        {"title": "Result", "field": "result_out_of"},
+        {"title": "Result %", "field": "percentage"}
+      ]
+    }
+  }
