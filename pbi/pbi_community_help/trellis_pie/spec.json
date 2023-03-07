@@ -59,17 +59,10 @@
     "width": 150,
     "height": 150,
     "layer": [
-      {
+            {
         "name": "type_text",
-        "transform": [
-          {
-            "window": [{"op": "dense_rank", "as": "type_dr"}],
-            "groupby": ["type"]
-          },
-          {"filter": "datum['type_dr']===1"}
-        ],
-        "mark": {"type": "text", "fontSize": 16},
-        "encoding": {"text": {"field": "Type"}, "yOffset": {"value": -35}}
+        "mark": {"type": "text", "fontSize": 16, "y": -35},
+        "encoding": {"text": {"field": "Type"}}
       },
       {
         "encoding": {
